@@ -1,4 +1,6 @@
-package documents;
+package persistantdata;
+
+import java.util.Arrays;
 
 import mediatheque.Document;
 import mediatheque.EmpruntException;
@@ -9,10 +11,9 @@ public abstract class ADocument implements Document {
 	private String titre, auteur;
 	private Utilisateur emprunteur;
 
-	public ADocument(String titre, String auteur, Utilisateur emprunteur) {
+	public ADocument(String titre, String auteur) {
 		this.titre = titre;
 		this.auteur = auteur;
-		this.emprunteur = emprunteur;
 	}
 
 	@Override
@@ -34,6 +35,11 @@ public abstract class ADocument implements Document {
 	public void retour() {
 		this.emprunteur = null;
 
+	}
+
+	public String toString() {
+		return Arrays.deepToString(affiche());
+		//return "{" + titre + ", " + auteur + (emprunteur == null ? "" : ", " + emprunteur) + "}";
 	}
 
 }

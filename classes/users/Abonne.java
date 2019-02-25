@@ -1,12 +1,18 @@
 package users;
 
-import mediatheque.Utilisateur;
+public class Abonne extends AUtilisateur {
 
-public class Abonne implements Utilisateur {
+	public Abonne(String login) {
+		super(login);
+	}
 
 	@Override
 	public boolean isBibliothecaire() {
 		return false;
 	}
 
+	@Override
+	public String toString() {
+		return "Abonne : " + super.toString();
+	}
 }

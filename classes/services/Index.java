@@ -1,0 +1,49 @@
+package services;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import mediatheque.Utilisateur;
+
+@WebServlet("/")
+public class Index extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	public Index() {
+		super();
+	}
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		check(req, resp);
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("/ : POST");
+		check(req, resp);
+	}
+
+	protected void check(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Utilisateur u = (Utilisateur) req.getSession().getAttribute("user");
+		String action = "" + (String) req.getParameter("action");
+		System.out.println("/ : Checking");
+		if(action.equals("logoff")) {
+			req.getSession().invalidate();
+			resp.sendRedirect(req.getContextPath() + "/");
+			return;
+		}
+		if (u != null) {
+			if (u.isBibliothecaire()) {
+				this.getServletContext().getRequestDispatcher("/bibliothecaire").forward(req, resp);
+			} else {
+				this.getServletContext().getRequestDispatcher("/abonne").forward(req, resp);
+			}
+		} else {
+			this.getServletContext().getRequestDispatcher("/login").forward(req, resp);
+		}
+	}
+}
