@@ -24,14 +24,14 @@ public class MediathequeData implements PersistentMediatheque {
 			e.printStackTrace();
 		}
 	}
-	private static final String url = "jdbc:mysql://51.77.210.114/bibliotheque", user = "bibliotheque",
+	public static final String url = "jdbc:mysql://51.77.210.114/bibliotheque", user = "bibliotheque",
 			pass = "bibliotheque";
 	private static Connection conn = null;
 
 	private MediathequeData() {
 	}
 
-	private static Connection getConn(String url, String user, String password) {
+	public static Connection getConn(String url, String user, String password) {
 		if (conn == null) {
 			try {
 				conn = DriverManager.getConnection(url, user, password);

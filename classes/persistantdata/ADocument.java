@@ -1,6 +1,12 @@
 package persistantdata;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import mediatheque.Document;
 import mediatheque.EmpruntException;
@@ -8,38 +14,46 @@ import mediatheque.Utilisateur;
 
 public abstract class ADocument implements Document {
 
+	private int id;
 	private String titre, auteur;
-	private Utilisateur emprunteur;
+	private Integer emprunteur;
 
-	public ADocument(String titre, String auteur) {
+	public ADocument(int id, String titre, String auteur, Integer emprunteur) {
 		this.titre = titre;
 		this.auteur = auteur;
+		this.id = id;
+		this.emprunteur = emprunteur;
 	}
 
 	@Override
 	public Object[] affiche() {
-		return new Object[] { titre, auteur, emprunteur };
+		return new Object[] { id, titre, auteur, emprunteur };
 	}
 
 	@Override
 	public void emprunter(Utilisateur arg0) throws EmpruntException {
-		synchronized (emprunteur) {
-			if (this.emprunteur != null)
-				throw new EmpruntException();
-			else
-				this.emprunteur = arg0;
-		}
+
 	}
 
 	@Override
 	public void retour() {
-		this.emprunteur = null;
-
+		Connection conn = MediathequeData.getConn(MediathequeData.url, MediathequeData.user, MediathequeData.pass);
+		if (conn == null)
+			return;
+		String sql = "UPDATE document SET idUtilisateur = NULL WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public String toString() {
 		return Arrays.deepToString(affiche());
-		//return "{" + titre + ", " + auteur + (emprunteur == null ? "" : ", " + emprunteur) + "}";
+		// return "{" + titre + ", " + auteur + (emprunteur == null ? "" : ", " +
+		// emprunteur) + "}";
 	}
 
 }
