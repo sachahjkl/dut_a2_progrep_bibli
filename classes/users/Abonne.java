@@ -2,8 +2,8 @@ package users;
 
 public class Abonne extends AUtilisateur {
 
-	public Abonne(String login) {
-		super(login);
+	public Abonne(int id, String login) {
+		super(id, login);
 	}
 
 	@Override
@@ -13,6 +13,6 @@ public class Abonne extends AUtilisateur {
 
 	@Override
 	public String toString() {
-		return "Abonne : " + super.toString();
+		return "Abonne: " + super.toString();
 	}
 }

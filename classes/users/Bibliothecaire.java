@@ -2,8 +2,8 @@ package users;
 
 public class Bibliothecaire extends AUtilisateur {
 
-	public Bibliothecaire(String login) {
-		super(login);
+	public Bibliothecaire(int id, String login) {
+		super(id, login);
 	}
 
 	@Override
@@ -13,7 +13,7 @@ public class Bibliothecaire extends AUtilisateur {
 
 	@Override
 	public String toString() {
-		return "Bibliothecaire : " + super.toString();
+		return "Bibliothecaire: " + super.toString();
 	}
 
 }

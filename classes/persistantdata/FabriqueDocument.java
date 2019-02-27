@@ -8,13 +8,13 @@ public class FabriqueDocument {
 		Document d = null;
 		switch (type) {
 		case 0:
-			d = new Livre((String) args[0], (String) args[1]);
+			d = new Livre((int) args[0], (String) args[1], (String) args[2], (Integer) args[3]);
 			break;
 		case 1:
-			d = new CD((String) args[0], (String) args[1]);
+			d = new CD((int) args[0], (String) args[1], (String) args[2], (Integer) args[3]);
 			break;
 		case 2:
-			d = new DVD((String) args[0], (String) args[1]);
+			d = new DVD((int) args[0], (String) args[1], (String) args[2], (Integer) args[3]);
 			break;
 		default:
 			break;

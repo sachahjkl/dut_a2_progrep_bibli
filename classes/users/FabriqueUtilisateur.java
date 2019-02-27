@@ -11,10 +11,10 @@ public class FabriqueUtilisateur {
 		Utilisateur u = null;
 		switch (type) {
 		case 0:
-			u = new Abonne((String) args[0]);
+			u = new Abonne((int) args[0],(String) args[1]);
 			break;
 		case 1:
-			u = new Bibliothecaire((String) args[0]);
+			u = new Bibliothecaire((int) args[0], (String) args[1]);
 			break;
 		default:
 			break;

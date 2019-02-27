@@ -4,14 +4,16 @@ import mediatheque.Utilisateur;
 
 public abstract class AUtilisateur implements Utilisateur {
 	private String login;
+	private int id;
 
-	public AUtilisateur(String login) {
+	public AUtilisateur(int id, String login) {
 		this.login = login;
+		this.id = id;
 	}
 
 	@Override
 	public String toString() {
-		return login;
+		return id + " " + login;
 	}
 
 }

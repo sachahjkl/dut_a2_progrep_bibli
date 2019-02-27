@@ -2,11 +2,8 @@ package persistantdata;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import mediatheque.Document;
 import mediatheque.EmpruntException;
@@ -16,9 +13,9 @@ public abstract class ADocument implements Document {
 
 	private int id;
 	private String titre, auteur;
-	private Integer emprunteur;
+	private int emprunteur;
 
-	public ADocument(int id, String titre, String auteur, Integer emprunteur) {
+	public ADocument(int id, String titre, String auteur, int emprunteur) {
 		this.titre = titre;
 		this.auteur = auteur;
 		this.id = id;
@@ -32,7 +29,22 @@ public abstract class ADocument implements Document {
 
 	@Override
 	public void emprunter(Utilisateur arg0) throws EmpruntException {
-
+		if (arg0 == null) {
+			return;
+		}
+		Connection conn = MediathequeData.getConn(MediathequeData.url, MediathequeData.user, MediathequeData.pass);
+		if (conn == null)
+			return;
+		int idu = Integer.parseInt(arg0.toString().split("")[1]);
+		String sql = "UPDATE document SET idUtilisateur = ? WHERE id=?";
+		try {
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setInt(1, idu);
+			ps.setInt(2, id);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

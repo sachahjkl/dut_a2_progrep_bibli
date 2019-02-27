@@ -48,13 +48,14 @@ public class MediathequeData implements PersistentMediatheque {
 		Connection conn = getConn(url, user, pass);
 		if (conn == null)
 			return null;
-		String sql = "SELECT type, titre, auteur FROM document";
+		String sql = "SELECT type, id, titre, auteur, idUtilisateur FROM document";
 		ResultSet rs = null;
 		List<Document> al = new ArrayList<>();
 		try {
 			rs = conn.createStatement().executeQuery(sql);
 			while (rs.next()) {
-				al.add(FabriqueDocument.make(rs.getInt(1), rs.getString(2), rs.getString(3)));
+				al.add(FabriqueDocument.make(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4),
+						rs.getInt(5)));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -72,14 +73,14 @@ public class MediathequeData implements PersistentMediatheque {
 		Utilisateur u = null;
 		if (conn == null)
 			return null;
-		String sql = "SELECT type, login FROM utilisateur WHERE login=? AND pwdSHA1=SHA1(?)";
+		String sql = "SELECT type, id ,login, FROM utilisateur WHERE login=? AND pwdSHA1=SHA1(?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, login);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
-				u = FabriqueUtilisateur.make(rs.getInt(1), rs.getString(2));
+				u = FabriqueUtilisateur.make(rs.getInt(1), rs.getInt(2), rs.getInt(3));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -95,13 +96,13 @@ public class MediathequeData implements PersistentMediatheque {
 		Document d = null;
 		if (conn == null)
 			return null;
-		String sql = "SELECT type, titre, auteur FROM document WHERE id=?";
+		String sql = "SELECT type, id, titre, auteur, idUtilisateur FROM document WHERE id=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, numDocument);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
-				d = FabriqueDocument.make(rs.getInt(1), rs.getString(2), rs.getString(3));
+				d = FabriqueDocument.make(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -116,12 +117,14 @@ public class MediathequeData implements PersistentMediatheque {
 		Connection conn = getConn(url, user, pass);
 		if (conn == null)
 			return;
-		String sql = "INSERT INTO document (type, titre, auteur) VALUES (?, ?, ?);";
+		String sql = "INSERT INTO document (id, idUtilisateur, type, titre, auteur) VALUES (?, ?, ?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, type);
 			ps.setString(2, (String) args[0]);
 			ps.setString(3, (String) args[1]);
+			ps.setString(4, (String) args[2]);
+			ps.setString(5, (String) args[3]);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
