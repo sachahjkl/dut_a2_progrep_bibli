@@ -35,7 +35,7 @@ public abstract class ADocument implements Document {
 		Connection conn = MediathequeData.getConn(MediathequeData.url, MediathequeData.user, MediathequeData.pass);
 		if (conn == null)
 			return;
-		int idu = Integer.parseInt(arg0.toString().split("")[1]);
+		int idu = Integer.parseInt(arg0.toString().split(" ")[1]);
 		String sql = "UPDATE document SET idUtilisateur = ? WHERE id=?";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);

@@ -73,14 +73,14 @@ public class MediathequeData implements PersistentMediatheque {
 		Utilisateur u = null;
 		if (conn == null)
 			return null;
-		String sql = "SELECT type, id ,login, FROM utilisateur WHERE login=? AND pwdSHA1=SHA1(?)";
+		String sql = "SELECT type, id ,login FROM utilisateur WHERE login=? AND pwdSHA1=SHA1(?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, login);
 			ps.setString(2, password);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next())
-				u = FabriqueUtilisateur.make(rs.getInt(1), rs.getInt(2), rs.getInt(3));
+				u = FabriqueUtilisateur.make(rs.getInt(1), rs.getInt(2), rs.getString(3));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -121,8 +121,8 @@ public class MediathequeData implements PersistentMediatheque {
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, type);
-			ps.setString(2, (String) args[0]);
-			ps.setString(3, (String) args[1]);
+			ps.setInt(2, (int) args[0]);
+			ps.setInt(3, (int) args[1]);
 			ps.setString(4, (String) args[2]);
 			ps.setString(5, (String) args[3]);
 			ps.executeUpdate();
