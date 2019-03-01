@@ -51,10 +51,8 @@ public class Login extends HttpServlet {
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = "" + (String) req.getParameter("action");
-		System.out.println("/login : PROCESS " + action);
 		if (action.equals("login")) {
 			if (login(req)) {
-				System.out.println("/login : act=log");
 				resp.sendRedirect(req.getContextPath() + "/");
 				return;
 			} else {
@@ -69,7 +67,6 @@ public class Login extends HttpServlet {
 	private boolean login(HttpServletRequest req) {
 		String login = "" + (String) req.getParameter("login");
 		String password = "" + (String) req.getParameter("password");
-		System.out.println("DB : " + login + " " + password);
 		Utilisateur u = Mediatheque.getInstance().getUser(login, password);
 		if (u == null)
 			return false;

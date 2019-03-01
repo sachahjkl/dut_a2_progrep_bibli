@@ -6,4 +6,8 @@ public class Livre extends ADocument {
 		super(id, titre, auteur, emprunteur);
 	}
 
+	@Override
+	public String toString() {
+		return "Livre "+ super.toString();
+	}
 }

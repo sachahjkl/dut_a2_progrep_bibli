@@ -117,14 +117,12 @@ public class MediathequeData implements PersistentMediatheque {
 		Connection conn = getConn(url, user, pass);
 		if (conn == null)
 			return;
-		String sql = "INSERT INTO document (id, idUtilisateur, type, titre, auteur) VALUES (?, ?, ?, ?, ?);";
+		String sql = "INSERT INTO document (type, titre, auteur) VALUES (?, ?, ?);";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setInt(1, type);
-			ps.setInt(2, (int) args[0]);
-			ps.setInt(3, (int) args[1]);
-			ps.setString(4, (String) args[2]);
-			ps.setString(5, (String) args[3]);
+			ps.setString(2, (String) args[0]);
+			ps.setString(3, (String) args[1]);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

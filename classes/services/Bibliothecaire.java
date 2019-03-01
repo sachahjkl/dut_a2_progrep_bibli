@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mediatheque.Mediatheque;
 import mediatheque.Utilisateur;
 
 @WebServlet("/bibliothecaire")
@@ -40,6 +41,15 @@ public class Bibliothecaire extends HttpServlet {
 	}
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String action = "" + req.getParameter("action");
+		if (action.equals("addDoc")) {
+			int type = Integer.parseInt(req.getParameter("type"));
+			String nomDoc = (String) req.getParameter("nomDoc"), auteurDoc = (String) req.getParameter("auteurDoc");
+			System.out.println(nomDoc + "," + auteurDoc);
+			Mediatheque.getInstance().nouveauDocument(type, nomDoc, auteurDoc);
+			resp.sendRedirect(req.getContextPath() + "/");
+			return;
+		}
 		req.setAttribute("title", "Dashboard Bibliothecaire");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/bibliothecaire/dash.jsp").forward(req, resp);
 	}

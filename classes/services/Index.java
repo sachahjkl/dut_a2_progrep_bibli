@@ -23,14 +23,12 @@ public class Index extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("/ : POST");
 		check(req, resp);
 	}
 
 	protected void check(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Utilisateur u = (Utilisateur) req.getSession().getAttribute("user");
 		String action = "" + (String) req.getParameter("action");
-		System.out.println("/ : Checking");
 		if(action.equals("logoff")) {
 			req.getSession().invalidate();
 			resp.sendRedirect(req.getContextPath() + "/");
