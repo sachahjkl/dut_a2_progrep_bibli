@@ -42,10 +42,11 @@ public class Bibliothecaire extends HttpServlet {
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = "" + req.getParameter("action");
+		req.setCharacterEncoding("UTF-8");
 		if (action.equals("addDoc")) {
 			int type = Integer.parseInt(req.getParameter("type"));
-			String nomDoc = (String) req.getParameter("nomDoc"), auteurDoc = (String) req.getParameter("auteurDoc");
-			System.out.println(nomDoc + "," + auteurDoc);
+			String nomDoc = req.getParameter("nomDoc"), auteurDoc = req.getParameter("auteurDoc");
+			System.out.println(req.getCharacterEncoding() + " " + req.getParameter("nomDoc"));
 			Mediatheque.getInstance().nouveauDocument(type, nomDoc, auteurDoc);
 			resp.sendRedirect(req.getContextPath() + "/");
 			return;

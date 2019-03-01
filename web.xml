@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
-	<display-name>Gestion Bibliothèque</display-name>
-	<description>gérer une bibliothèqye</description>
-	<servlet>
-		<servlet-name>Bibliotheque</servlet-name>
-		<servlet-class></servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Bibliotheque</servlet-name>
-		<url-pattern>/</url-pattern>
-	</servlet-mapping>
+  <description>bibliotheque</description>
+  <display-name>Biblio</display-name>
+  <context-param>
+    <param-name>dataSource</param-name>
+    <param-value>persistantdata.MediathequeData</param-value>
+  </context-param>
 </web-app>

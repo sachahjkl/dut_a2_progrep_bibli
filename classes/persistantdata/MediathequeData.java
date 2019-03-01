@@ -12,10 +12,10 @@ import mediatheque.*;
 import users.FabriqueUtilisateur;
 
 // classe mono-instance  dont l'unique instance n'est connue que de la bibliotheque
-// via une auto-déclaration dans son bloc static
+// via une auto-dï¿½claration dans son bloc static
 
 public class MediathequeData implements PersistentMediatheque {
-// Jean-François Brette 01/01/2018
+// Jean-Franï¿½ois Brette 01/01/2018
 	static {
 		Mediatheque.getInstance().setData(new MediathequeData());
 		try {
@@ -32,17 +32,19 @@ public class MediathequeData implements PersistentMediatheque {
 	}
 
 	public static Connection getConn(String url, String user, String password) {
-		if (conn == null) {
-			try {
+		try {
+			if (conn == null)
 				conn = DriverManager.getConnection(url, user, password);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			else if (!conn.isValid(1))
+				conn = DriverManager.getConnection(url, user, password);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 		return conn;
 	}
 
-	// renvoie la liste de tous les documents de la bibliothèque
+	// renvoie la liste de tous les documents de la bibliothï¿½que
 	@Override
 	public List<Document> tousLesDocuments() {
 		Connection conn = getConn(url, user, pass);
@@ -64,8 +66,8 @@ public class MediathequeData implements PersistentMediatheque {
 	}
 
 	/*
-	 * 0 : Abonné, 1 : Bibliothécaire, va récupérer le User dans la BD et le renvoie
-	 * si pas trouvé, renvoie null
+	 * 0 : Abonnï¿½, 1 : Bibliothï¿½caire, va rï¿½cupï¿½rer le User dans la BD et le renvoie
+	 * si pas trouvï¿½, renvoie null
 	 */
 	@Override
 	public Utilisateur getUser(String login, String password) {
@@ -87,9 +89,9 @@ public class MediathequeData implements PersistentMediatheque {
 		return u;
 	}
 
-	// va récupérer le document de numéro numDocument dans la BD
+	// va rï¿½cupï¿½rer le document de numï¿½ro numDocument dans la BD
 	// et le renvoie
-	// si pas trouvé, renvoie null
+	// si pas trouvï¿½, renvoie null
 	@Override
 	public Document getDocument(int numDocument) {
 		Connection conn = getConn(url, user, pass);

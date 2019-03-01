@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import mediatheque.Document;
+import mediatheque.EmpruntException;
+import mediatheque.Mediatheque;
 import mediatheque.Utilisateur;
 
 @WebServlet("/abonne")
@@ -40,6 +43,25 @@ public class Abonne extends HttpServlet {
 	}
 
 	private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String action = "" + req.getParameter("action");
+		req.setCharacterEncoding("UTF-8");
+		if (action.equals("emprunt")) {
+			int id = Integer.parseInt(req.getParameter("emprunt"));
+			Document d = Mediatheque.getInstance().getDocument(id);
+			try {
+				d.emprunter((Utilisateur) req.getSession().getAttribute("user"));
+			} catch (EmpruntException e) {
+				e.printStackTrace();
+			}
+			resp.sendRedirect(req.getContextPath() + "/");
+			return;
+		} else if (action.equals("retour")) {
+			int id = Integer.parseInt(req.getParameter("retour"));
+			Document d = Mediatheque.getInstance().getDocument(id);
+			d.retour();
+			resp.sendRedirect(req.getContextPath() + "/");
+			return;
+		}
 		req.setAttribute("title", "Dashboard Abonne");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/abonne/dash.jsp").forward(req, resp);
 	}

@@ -26,7 +26,7 @@
 				<div class="card mt-4">
 					<h3 class="card-header">Ajout d'un document</h3>
 					<div class="card-body">
-						<form action="?action=addDoc" method="post">
+						<form action="?action=addDoc" method="post" accept-charset="UTF-8">
 							<div class="form-group">
 								<select class="form-control" name="type">
 									<option selected="selected" value="0">Livre</option>

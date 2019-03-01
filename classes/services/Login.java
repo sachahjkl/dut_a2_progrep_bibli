@@ -14,17 +14,6 @@ import mediatheque.Utilisateur;
 @WebServlet("/login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	static {
-		try {
-			Class.forName("persistantdata.MediathequeData");
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Login() {
-		super();
-	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -58,7 +47,6 @@ public class Login extends HttpServlet {
 			} else {
 				req.setAttribute("error", "le login et/ou le mot de passe sont incorrects.");
 			}
-
 		}
 		req.setAttribute("title", "Connexion");
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/login/login.jsp").forward(req, resp);
