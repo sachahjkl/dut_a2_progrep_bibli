@@ -38,14 +38,14 @@
 				<%
 					if (empruntables.isEmpty()) {
 				%>
-				<p>Aucun livre n'est disponible à l'emprunt</p>
+				<p>Aucun document n'est disponible à l'emprunt</p>
 				<%
 					} else {
 				%>
 				<form action="?action=emprunt" method="post" accept-charset="UTF-8">
 					<div class="input-group mb-3">
 						<select class="form-control" name="emprunt"
-							aria-label="Livre à emprunter" aria-describedby="btnEmprunt">
+							aria-label="Document à emprunter" aria-describedby="btnEmprunt">
 							<%
 								doc = empruntables.get(0).affiche();
 									type = empruntables.get(0).toString().split(" ")[0];
@@ -81,14 +81,14 @@
 				<%
 					if (retournables.isEmpty()) {
 				%>
-				<p>Vous n'avez aucun livre à retourner</p>
+				<p>Vous n'avez aucun document à retourner</p>
 				<%
 					} else {
 				%>
 				<form action="?action=retour" method="post" accept-charset="UTF-8">
 					<div class="input-group mb-3">
 						<select class="form-control" name="retour"
-							aria-label="Livre à emprunter" aria-describedby="btnRetour">
+							aria-label="Document à emprunter" aria-describedby="btnRetour">
 							<%
 								doc = retournables.get(0).affiche();
 									type = retournables.get(0).toString().split(" ")[0];
