@@ -54,11 +54,11 @@
 								<%=type + " " + doc[1] + " " + doc[2]%>
 							</option>
 							<%
-								for (int i = 1; i < empruntables.size() - 1; ++i) {
+								for (int i = 1; i < empruntables.size(); ++i) {
 										doc = empruntables.get(i).affiche();
 										type = empruntables.get(i).toString().split(" ")[0];
 							%>
-							<option selected="selected" value=<%=doc[0]%>>
+							<option value=<%=doc[0]%>>
 								<%=type + " " + doc[1] + " " + doc[2]%>
 							</option>
 							<%
@@ -101,7 +101,7 @@
 										doc = retournables.get(i).affiche();
 										type = retournables.get(i).toString().split(" ")[0];
 							%>
-							<option selected="selected" value=<%=doc[0]%>>
+							<option value=<%=doc[0]%>>
 								<%=type + " " + doc[1] + " " + doc[2]%>
 							</option>
 							<%
