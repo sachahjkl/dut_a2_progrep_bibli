@@ -1,3 +1,5 @@
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.security.MessageDigest"%>
 <%@page import="java.util.List"%>
 <%@page import="mediatheque.Document"%>
 <%@page import="mediatheque.Mediatheque"%>
@@ -6,6 +8,7 @@
 <%
 	Utilisateur user = (Utilisateur) session.getAttribute("user");
 	List<Document> docs = Mediatheque.getInstance().tousLesDocuments();
+	MessageDigest md = MessageDigest.getInstance("MD5");
 %>
 <!DOCTYPE html>
 <html>
@@ -52,8 +55,16 @@
 
 				<%
 					for (Document d : docs) {
+						
 						Object[] elements = d.affiche();
 						String id = elements[1].toString().replace(" ", "_");
+			            byte[] messageDigest = md.digest(id.getBytes());
+			            BigInteger no = new BigInteger(1, messageDigest); 
+			            id = no.toString(16); 
+			            while (id.length() < 32) { 
+			                id = "0" + id; 
+			            } 
+			            id = "ID" + id;
 						String type = d.toString().split(" ")[0];
 				%>
 				<div class="card shadow-sm mt-2">
