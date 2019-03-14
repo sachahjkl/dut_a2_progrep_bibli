@@ -66,8 +66,8 @@ public class MediathequeData implements PersistentMediatheque {
 	}
 
 	/*
-	 * 0 : Abonn�, 1 : Biblioth�caire, va r�cup�rer le User dans la BD et le renvoie
-	 * si pas trouv�, renvoie null
+	 * 0 : Abonné, 1 : Bibliothécaire, va récupérer le User dans la BD et le renvoie
+	 * si pas trouvé, renvoie null
 	 */
 	@Override
 	public Utilisateur getUser(String login, String password) {
