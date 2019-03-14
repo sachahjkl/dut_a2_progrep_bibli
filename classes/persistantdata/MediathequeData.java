@@ -12,10 +12,10 @@ import mediatheque.*;
 import users.FabriqueUtilisateur;
 
 // classe mono-instance  dont l'unique instance n'est connue que de la bibliotheque
-// via une auto-d�claration dans son bloc static
+// via une auto-déclaration dans son bloc static
 
 public class MediathequeData implements PersistentMediatheque {
-// Jean-Fran�ois Brette 01/01/2018
+// Jean-François Brette 01/01/2018
 	static {
 		Mediatheque.getInstance().setData(new MediathequeData());
 		try {
@@ -44,7 +44,7 @@ public class MediathequeData implements PersistentMediatheque {
 		return conn;
 	}
 
-	// renvoie la liste de tous les documents de la biblioth�que
+	// renvoie la liste de tous les documents de la bibliothéque
 	@Override
 	public List<Document> tousLesDocuments() {
 		Connection conn = getConn(url, user, pass);
@@ -89,9 +89,9 @@ public class MediathequeData implements PersistentMediatheque {
 		return u;
 	}
 
-	// va r�cup�rer le document de num�ro numDocument dans la BD
+	// va récupérer le document de numéro numDocument dans la BD
 	// et le renvoie
-	// si pas trouv�, renvoie null
+	// si pas trouvé, renvoie null
 	@Override
 	public Document getDocument(int numDocument) {
 		Connection conn = getConn(url, user, pass);
