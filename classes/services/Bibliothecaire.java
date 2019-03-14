@@ -47,7 +47,10 @@ public class Bibliothecaire extends HttpServlet {
 			int type = Integer.parseInt(req.getParameter("type"));
 			String nomDoc = req.getParameter("nomDoc"), auteurDoc = req.getParameter("auteurDoc");
 			System.out.println(req.getCharacterEncoding() + " " + req.getParameter("nomDoc"));
-			Mediatheque.getInstance().nouveauDocument(type, nomDoc, auteurDoc);
+			Mediatheque m = Mediatheque.getInstance();
+			synchronized (m) {
+				m.nouveauDocument(type, nomDoc, auteurDoc);
+			}
 			resp.sendRedirect(req.getContextPath() + "/");
 			return;
 		}

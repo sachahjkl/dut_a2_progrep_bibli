@@ -49,7 +49,9 @@ public class Abonne extends HttpServlet {
 			int id = Integer.parseInt(req.getParameter("emprunt"));
 			Document d = Mediatheque.getInstance().getDocument(id);
 			try {
-				d.emprunter((Utilisateur) req.getSession().getAttribute("user"));
+				synchronized (d) {
+					d.emprunter((Utilisateur) req.getSession().getAttribute("user"));
+				}
 			} catch (EmpruntException e) {
 				e.printStackTrace();
 			}
@@ -58,7 +60,9 @@ public class Abonne extends HttpServlet {
 		} else if (action.equals("retour")) {
 			int id = Integer.parseInt(req.getParameter("retour"));
 			Document d = Mediatheque.getInstance().getDocument(id);
-			d.retour();
+			synchronized (d) {
+				d.retour();
+			}
 			resp.sendRedirect(req.getContextPath() + "/");
 			return;
 		}

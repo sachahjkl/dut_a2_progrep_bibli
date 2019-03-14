@@ -25,17 +25,6 @@ public class Index extends HttpServlet {
 		}
 	}
 
-//	@Override
-//	public void init() throws ServletException {
-//		super.init();
-//		String classe = getInitParameter("dataSource");
-//		try {
-//			Class.forName(classe);
-//		} catch (ClassNotFoundException e) {
-//			e.printStackTrace();
-//		}
-//	}
-
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		check(req, resp);
