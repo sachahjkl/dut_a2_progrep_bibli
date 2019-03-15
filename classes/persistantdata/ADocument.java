@@ -32,6 +32,8 @@ public abstract class ADocument implements Document {
 		if (arg0 == null) {
 			return;
 		}
+		if(emprunteur != 0)
+			throw new EmpruntException();
 		Connection conn = MediathequeData.getConn(MediathequeData.url, MediathequeData.user, MediathequeData.pass);
 		if (conn == null)
 			return;

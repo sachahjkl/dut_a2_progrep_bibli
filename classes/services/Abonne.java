@@ -47,9 +47,10 @@ public class Abonne extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		if (action.equals("emprunt")) {
 			int id = Integer.parseInt(req.getParameter("emprunt"));
-			Document d = Mediatheque.getInstance().getDocument(id);
+			Mediatheque m = Mediatheque.getInstance();
+			Document d = m.getDocument(id);
 			try {
-				synchronized (d) {
+				synchronized (m) {
 					d.emprunter((Utilisateur) req.getSession().getAttribute("user"));
 				}
 			} catch (EmpruntException e) {
@@ -59,8 +60,9 @@ public class Abonne extends HttpServlet {
 			return;
 		} else if (action.equals("retour")) {
 			int id = Integer.parseInt(req.getParameter("retour"));
-			Document d = Mediatheque.getInstance().getDocument(id);
-			synchronized (d) {
+			Mediatheque m = Mediatheque.getInstance();
+			Document d = m.getDocument(id);
+			synchronized (m) {
 				d.retour();
 			}
 			resp.sendRedirect(req.getContextPath() + "/");
